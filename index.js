@@ -8,7 +8,8 @@ const config = new Settings();
 const DEBUG = !!process.env.DEBUG;
 
 DEBUG && console.log(process.argv.slice(2));
-function entry(argv) {
+function entry() {
+  var argv = process.argv.slice(2);
   if(!argv.length) {
     return printHelp();
   }
@@ -18,7 +19,7 @@ function entry(argv) {
   if(aliases.hasOwnProperty(alias) || alias == '-') {
     // resolve alias map
     let cwd = getGitDir();
-    let nwd = alias == '-' ? config.get('-.' + cwd) :  aliases[alias]; // new working direction
+    let nwd = alias == '-' ? config.get('-.' + cwd) :  aliases[alias]; // new working directory
     if(!nwd) {
       process.stderr.write(`No alias \`${alias}' set for \`${cwd}'\n`);
       return printHelp();
@@ -63,7 +64,7 @@ function resolveOptions(option, argv) {
       } else if(typeof path == 'undefined') { // print
         path = config.get('-.' + cwd);
         if(path) {
-          process.stdout.write(`alias \`-' is set to \`${path}'\n`);
+          process.stdout.write(`\`-' is aliased to \`${path}'\n`);
         } else {
           process.stderr.write("Cannot find alias `-'\n");
           printHelp();
@@ -75,7 +76,7 @@ function resolveOptions(option, argv) {
       // add alias
       path = Path.resolve(path);
       config.set('alias.' + name, path);
-      process.stdout.write(`Saved alias.${name} = \`${path}'\n`);
+      process.stdout.write(`Saved alias \`${name}' to \`${path}'\n`);
     } else if(typeof path == 'undefined') {
       // print alias
       path = config.get('alias.' + name);
@@ -88,7 +89,7 @@ function resolveOptions(option, argv) {
     } else if(path === '') {
       // delete alias
       config.set('alias.' + name);
-      process.stdout.write(`\`alias.${name}' removed!\n`);
+      process.stdout.write(`Removed alias \`${name}'!\n`);
     }
   } else {
     printHelp();
@@ -117,4 +118,8 @@ Options:
   console.log(helpInfo);
 }
 
-module.exports = entry;
+if (require.main === module) {
+  entry();
+} else {
+  module.exports = entry;
+}

@@ -1,13 +1,13 @@
 {
   "name": "git-shortcut",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "run git commands without switch directory",
   "main": "index",
   "bin": {
     "g": "./bin/g"
   },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "./bin/g"
   },
   "repository": {
     "type": "git",
