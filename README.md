@@ -1,5 +1,7 @@
 # git-shortcut
 
+[![Build Status](https://travis-ci.org/yangg/git-shortcut.svg?branch=master)](https://travis-ci.org/yangg/git-shortcut) [![dependencies](https://david-dm.org/yangg/git-shortcut.svg)](https://david-dm.org/yangg/git-shortcut)
+
 ## Install
 ```bash
 npm install -g git-shortcut
