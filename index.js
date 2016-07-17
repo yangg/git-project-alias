@@ -7,7 +7,8 @@ const config = require('./config');
 const DEBUG = !!process.env.DEBUG;
 
 DEBUG && console.log(process.argv.slice(2));
-function entry( argv = process.argv.slice(2) ) {
+function entry( argv ) {
+  argv = argv || process.argv.slice(2) ;
   if(!argv.length) {
     return printHelp();
   }
