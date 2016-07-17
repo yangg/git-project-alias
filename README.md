@@ -2,7 +2,8 @@
 
 [![Build Status](https://travis-ci.org/yangg/git-shortcut.svg?branch=master)](https://travis-ci.org/yangg/git-shortcut) [![Dependency Status](https://david-dm.org/yangg/git-shortcut.svg)](https://david-dm.org/yangg/git-shortcut)
 
-git 命令行下直接操作其它项目
+git 命令行下快捷操作多个项目
+git-shortcut helps you quickly operate multiple repos without switch directory in command line
 
 ## Install
 ```bash
@@ -10,6 +11,8 @@ npm install -g git-shortcut
 ```
 
 ## Usage
+
+![git-shortcut usage](https://o8hio0x77.qnssl.com/i/brook_git-shortcut.gif)
 
 ```
 # add alias
@@ -23,7 +26,8 @@ g d log
 # work as a alias for git if not alias matched
 g push
 
-# 特殊别名 -，用于常切换于两个 repo 时，操作相对应的另一个项目
+# 特殊别名 -，用于经常切换于两个 repo 之间时，操作相对应的另一个项目
+# special alias, work on the related repo, and vice versa
 cd ../main
 g -s - ../static
 g - pull

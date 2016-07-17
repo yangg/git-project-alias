@@ -18,18 +18,22 @@ describe('git shortcut', function() {
   });
 
   describe('options', function() {
+    let repoPath = Path.resolve('.');
+    let repoRelated = Path.resolve('__repo__');
     describe('# set alias', function() {
       it('should add alias', function() {
         shortcut(['-s', 'b', '__repo__']);
-        assert.equal(config.get('alias.b'), Path.resolve('__repo__'));
+        assert.equal(config.get('alias.b'), repoRelated);
 
         shortcut(['-s', 'c', '.']);
-        assert.equal(config.get('alias.c'), Path.resolve('.'));
+        assert.equal(config.get('alias.c'), repoPath);
+
+        shortcut(['-s', '-', '__repo__']);
+        assert.equal(config.get('-.' + repoPath), repoRelated, "Alias `-'");
       });
 
       it('should show alias', function() {
         shortcut(['-s', 'b']);
-        // assert(config.get('alias.b'), '__repo__');
       });
 
       it('should remove alias', function() {
@@ -40,12 +44,16 @@ describe('git shortcut', function() {
 
     describe('# work with alias', function() {
       it('should operate other repo', function() {
-        assert.deepEqual(shortcut(['c', 'log']), ['-C', Path.resolve('.'), 'log']);
+        assert.deepEqual(shortcut(['c', 'log']), ['-C', repoPath, 'log']);
+      });
+
+      it('should operate related repo', function() {
+        assert.deepEqual(shortcut(['-', 'log']), ['-C', repoRelated, 'log']);
       });
 
       it('should work as a alias for git if no alias matched', function() {
         assert.deepEqual(shortcut(['log']), ['log']);
-      })
+      });
     });
   });
 });

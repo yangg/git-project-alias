@@ -61,6 +61,7 @@ function resolveOptions(option, argv) {
         if(!config.get('-.' + path)) {
           config.set('-.' + path, cwd);
         }
+        process.stdout.write(`Saved alias \`-' to \`${path}'\n`);
       } else if(typeof path == 'undefined') { // print
         path = config.get('-.' + cwd);
         if(path) {
@@ -89,7 +90,7 @@ function resolveOptions(option, argv) {
     } else if(path === '') {
       // delete alias
       config.set('alias.' + name);
-      process.stdout.write(`Removed alias \`${name}'!\n`);
+      process.stdout.write(`Removed alias \`${name}'\n`);
     }
   } else {
     printHelp();
