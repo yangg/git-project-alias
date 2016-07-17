@@ -1,6 +1,8 @@
 # git-shortcut
 
-[![Build Status](https://travis-ci.org/yangg/git-shortcut.svg?branch=master)](https://travis-ci.org/yangg/git-shortcut) [![dependencies](https://david-dm.org/yangg/git-shortcut.svg)](https://david-dm.org/yangg/git-shortcut)
+[![Build Status](https://travis-ci.org/yangg/git-shortcut.svg?branch=master)](https://travis-ci.org/yangg/git-shortcut) [![Dependency Status](https://david-dm.org/yangg/git-shortcut.svg)](https://david-dm.org/yangg/git-shortcut)
+
+git 命令行下直接操作其它项目
 
 ## Install
 ```bash
@@ -37,3 +39,7 @@ g -s b ''
 
 ### Config file
 `~/.git-shortcut.yml`
+
+
+## License
+MIT

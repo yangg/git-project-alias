@@ -1,15 +1,13 @@
 #!/usr/bin/env node
 
 const Path  = require('path');
-const execFile = require('child_process').execFileSync;
+var execFile = require('child_process').execFileSync;
 
-const Settings = require('./lib/settings');
-const config = new Settings();
+const config = require('./config');
 const DEBUG = !!process.env.DEBUG;
 
 DEBUG && console.log(process.argv.slice(2));
-function entry() {
-  var argv = process.argv.slice(2);
+function entry( argv = process.argv.slice(2) ) {
   if(!argv.length) {
     return printHelp();
   }
@@ -40,7 +38,7 @@ function entry() {
   }
   DEBUG && console.log(argv);
   try {
-    execFile('git', argv, { stdio: 'inherit' });
+    return execFile(config.get('git_cmd'), argv, { stdio: 'inherit' });
   } catch(ex) {
   }
 }
@@ -98,7 +96,7 @@ function resolveOptions(option, argv) {
 
 function getGitDir() {
   try {
-    let res = execFile('git', ['rev-parse', '--show-toplevel']);
+    let res = execFile(config.get('git_cmd'), ['rev-parse', '--show-toplevel']);
     return res.toString().trim();
   } catch(ex) {
     process.exit(1);
