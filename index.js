@@ -1,4 +1,5 @@
 #!/usr/bin/env node
+'use strict';
 
 const Path  = require('path');
 var execFile = require('child_process').execFileSync;
@@ -47,7 +48,7 @@ function entry( argv ) {
 function resolveOptions(option, argv) {
   // set alias
   if(option == '-s' || option == '--set') {
-    let [name, path] = argv;
+    let name = argv[0], path = argv[1];
     if(!name) {
       return printHelp();
     }
