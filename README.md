@@ -4,7 +4,7 @@
 
 git 命令行下快捷操作多个项目
 
-git-shortcut helps you quickly operate multiple repos without switch directory in command line
+git-shortcut helps you quickly run git commands work with multiple repos without switch directory
 
 ## Install
 ```bash
@@ -24,7 +24,7 @@ g -s d ../dotfiles
 g b pull
 g d log
 # 没有别名匹配时，g 相当于 git 的别名，直接对当前项目操作
-# work as a alias for git if not alias matched
+# work as a alias for git if no alias matched
 g push
 
 # 特殊别名 -，用于经常切换于两个 repo 之间时，操作相对应的另一个项目
