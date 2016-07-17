@@ -3,6 +3,7 @@
 [![Build Status](https://travis-ci.org/yangg/git-shortcut.svg?branch=master)](https://travis-ci.org/yangg/git-shortcut) [![Dependency Status](https://david-dm.org/yangg/git-shortcut.svg)](https://david-dm.org/yangg/git-shortcut)
 
 git 命令行下快捷操作多个项目
+
 git-shortcut helps you quickly operate multiple repos without switch directory in command line
 
 ## Install
@@ -12,7 +13,7 @@ npm install -g git-shortcut
 
 ## Usage
 
-![git-shortcut usage](https://o8hio0x77.qnssl.com/i/brook_git-shortcut.gif)
+![git-shortcut usage](https://cloud.githubusercontent.com/assets/409225/16899413/71c59dda-4c35-11e6-8d93-ad261a99fe8a.gif)
 
 ```
 # add alias
