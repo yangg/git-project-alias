@@ -111,15 +111,7 @@ function getGitDir() {
 }
 
 function printHelp() {
-  let helpInfo = `Usage:
-  git-shortcut [alias] <git commands>
-  git-shortcut [<options>...]
-Options:
- -s, --set    set alias
-  example:
-   git -s b ../blog
-   git b pull
-`;
+  let helpInfo = require('fs').readFileSync(__dirname + '/help.txt').toString();
   console.log(helpInfo);
 }
 

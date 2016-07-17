@@ -1,0 +1,13 @@
+Usage:
+  git-shortcut [alias] <git commands>
+  git-shortcut [<options>...]
+Options:
+  -s, --set    set alias
+    example:
+      git -s b ../blog
+      git b pull
+      # work with related repo
+      git -s - /path/to/related
+      g - st
+      cd /path/to/related
+      g - st

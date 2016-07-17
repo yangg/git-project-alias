@@ -13,9 +13,7 @@ npm install -g git-shortcut
 
 ## Usage
 
-![git-shortcut usage](https://cloud.githubusercontent.com/assets/409225/16899413/71c59dda-4c35-11e6-8d93-ad261a99fe8a.gif)
-
-```
+```bash
 # add alias
 g -s b ../blog
 g -s d ../dotfiles
@@ -36,6 +34,8 @@ cd ../static
 # show status of main
 g - status
 ```
+
+![git-shortcut usage](https://cloud.githubusercontent.com/assets/409225/16899413/71c59dda-4c35-11e6-8d93-ad261a99fe8a.gif)
 
 ### Remove alias
 ```bash
