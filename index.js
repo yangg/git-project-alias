@@ -22,6 +22,7 @@ function entry( argv ) {
     // options
     return resolveOptions(alias, argv);
   } else {
+    // not a option or alias
     // call git <cmd>
     argv.unshift(alias);
   }
@@ -45,7 +46,7 @@ function resolveAlias(alias, argv) {
 
   // no more arguments, run 'git <default_cmd>'
   if(argv.length === 2) {
-    argv.push(config.get('default_cmd'));
+    argv.push.apply(argv, config.get('default_cmd'));
   }
 }
 

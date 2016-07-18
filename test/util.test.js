@@ -1,7 +1,7 @@
 'use strict';
 
-var assert = require('chai').assert;
-var util = require('../lib/util');
+const assert = require('chai').assert;
+const util = require('../lib/util');
 describe('util', function() {
   describe('setObj', function() {
     var obj = { a : { }, exist: 1 };
