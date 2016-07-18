@@ -1,6 +1,6 @@
 {
   "name": "git-shortcut",
-  "version": "1.0.4",
+  "version": "1.0.6",
   "description": "quickly run git commands work with multiple repos without switch directory",
   "main": "index",
   "bin": {
