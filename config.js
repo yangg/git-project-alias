@@ -2,10 +2,11 @@
 
 const Settings = require('./lib/settings');
 
-const config = new Settings({
+const config = new Settings('.git-shortcut.yml');
+config.init({
   alias: {},
   default_cmd: 'status',
   git_cmd: 'git'
-}, '.git-shortcut.yml');
+});
 
 module.exports = config;

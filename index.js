@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 'use strict';
 
-const Path  = require('path');
+const Path  = require('./lib/path');
 var execFile = require('child_process').execFileSync;
 
 const config = require('./config');

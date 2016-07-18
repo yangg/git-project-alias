@@ -2,9 +2,10 @@
 
 var assert = require('chai').assert;
 var rewire = require("rewire");
-var Path   = require('path');
+var Path   = require('../lib/path');
 
 var config = require('../config');
+config.configPath = Path.join(process.env.TMP || '/tmp', 'git-shortcut.yml');
 
 var shortcut = rewire('../');
 var realExecFileSync = require('child_process').execFileSync;
