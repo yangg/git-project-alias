@@ -1,6 +1,6 @@
 'use strict';
 
-const Settings = require('./lib/settings');
+const Settings = require('yaml-settings');
 
 const config = new Settings('.git-shortcut.yml');
 config.init({

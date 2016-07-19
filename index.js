@@ -1,5 +1,10 @@
 #!/usr/bin/env node
 'use strict';
+/*!
+ * git-shortcut
+ * helps you quickly run git commands work with multiple repos without switch directory
+ * @author Brook Yang https://github.com/yangg/git-shortcut
+ */
 
 const Path  = require('./lib/path');
 var execFile = require('child_process').execFileSync;

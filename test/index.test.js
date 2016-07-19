@@ -5,8 +5,7 @@ const rewire = require("rewire");
 const Path   = require('../lib/path');
 
 const config = require('../config');
-const os = require('os');
-config.configPath = Path.join(os.tmpdir(), 'git-shortcut.yml');
+config.configPath = Path.join(require('os').tmpdir(), 'git-shortcut.yml');
 
 var shortcut = rewire('../');
 var realExecFileSync = require('child_process').execFileSync;
