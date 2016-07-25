@@ -6,6 +6,8 @@
  * @author Brook Yang https://github.com/yangg/git-shortcut
  */
 
+const fs = require('fs');
+
 const Path  = require('./lib/path');
 var execFile = require('child_process').execFileSync;
 
@@ -18,33 +20,43 @@ function entry( argv ) {
     return printHelp();
   }
   let alias = argv.shift();
-  let retVal = true;
 
   // if alias exist, reslove alias
-  if(config.get('alias.' + alias) || alias === '-') {
-    retVal = resolveAlias(alias, argv);
+  if(alias[0] !== '-' || alias === '-') {
+    let hasError = resolveAlias(alias, argv);
+    // if(hasError === false) {
+    //   return false;
+    // }
   } else if(alias[0] === '-') { // start with `-'
     // options
     return resolveOptions(alias, argv);
-  } else {
-    // not a option or alias
-    // call git <cmd>
-    argv.unshift(alias);
   }
   // console.log(argv);
   try {
-    return (retVal !== false) && execFile(config.get('git_cmd'), argv, { stdio: 'inherit' });
+    return execFile(config.get('git_cmd'), argv, { stdio: 'inherit' });
   } catch(ex) {
+    process.stderr.write(`Git command exit with error\n`);
   }
 }
 
 function resolveAlias(alias, argv) {
-  let cwd = getGitDir();
-  let nwd = config.get(alias === '-' ? ('-.' + cwd) : ('alias.' + alias)); // new working directory
+  let nwd = Path.resolve(alias); // new working directory
+  let cwd;
+  try {
+    fs.accessSync(nwd); // check if file exist
+  } catch(ex) {
+    cwd = getGitDir();
+    nwd = config.get(alias === '-' ? ('-.' + cwd) : ('alias.' + alias));
+  }
+
   if(!nwd) {
-    process.stderr.write(`No alias \`${alias}' set for \`${cwd}'\n`);
-    printHelp();
-    return false;
+    // not a option or alias
+    // call git <cmd>
+    argv.unshift(alias);
+    return;
+    // process.stderr.write(`No alias \`${alias}' set for \`${cwd}'\n`);
+    // printHelp();
+    // return false;
   }
   process.stdout.write(`Working directory changed to \`${nwd}'\n`)
   argv.unshift('-C', nwd);
@@ -58,52 +70,58 @@ function resolveAlias(alias, argv) {
 function resolveOptions(option, argv) {
   // set alias
   if(option === '-s' || option === '--set') {
-    let name = argv[0], path = argv[1];
-    if(!name) {
-      return printHelp();
-    }
-    // special alias `-'
-    if(name === '-') {
-      let cwd = getGitDir();
-      if(path) { // set
-        path = Path.resolve(path);
-        config.set('-.' + cwd, path);
-        if(!config.get('-.' + path)) {
-          config.set('-.' + path, cwd);
-        }
-        process.stdout.write(`Saved alias \`-' to \`${path}'\n`);
-      } else if(typeof path === 'undefined') { // print
-        path = config.get('-.' + cwd);
-        if(path) {
-          process.stdout.write(`\`-' is aliased to \`${path}'\n`);
-        } else {
-          process.stderr.write("Cannot find alias `-'\n");
-          return printHelp();
-        }
-      } else if(path === '') {
-        config.set('-.' + cwd);
-      }
-    } else if(path) {
-      // add alias
-      path = Path.resolve(path);
-      config.set('alias.' + name, path);
-      process.stdout.write(`Saved alias \`${name}' to \`${path}'\n`);
-    } else if(typeof path === 'undefined') {
-      // print alias
-      path = config.get('alias.' + name);
-      if(path) {
-        process.stdout.write(`alias.${name} = \`${path}'\n`);
-      } else {
-        process.stderr.write(`Cannot find alias \`${name}'\n`);
-        printHelp();
-      }
-    } else if(path === '') {
-      // delete alias
-      config.set('alias.' + name);
-      process.stdout.write(`Removed alias \`${name}'\n`);
-    }
+    addAlias(argv);
+  } else if(option === '-p' || option == '--parallel') {
+
   } else {
     printHelp();
+  }
+}
+
+function addAlias(argv) {
+  let name = argv[0], path = argv[1];
+  if(!name) {
+    return printHelp();
+  }
+  // special alias `-'
+  if(name === '-') {
+    let cwd = getGitDir();
+    if(path) { // set
+      path = Path.resolve(path);
+      config.set('-.' + cwd, path);
+      if(!config.get('-.' + path)) {
+        config.set('-.' + path, cwd);
+      }
+      process.stdout.write(`Saved alias \`-' to \`${path}'\n`);
+    } else if(typeof path === 'undefined') { // print
+      path = config.get('-.' + cwd);
+      if(path) {
+        process.stdout.write(`\`-' is aliased to \`${path}'\n`);
+      } else {
+        process.stderr.write("Cannot find alias `-'\n");
+        return printHelp();
+      }
+    } else if(path === '') {
+      config.set('-.' + cwd);
+    }
+  } else if(path) {
+    // add alias
+    path = Path.resolve(path);
+    config.set('alias.' + name, path);
+    process.stdout.write(`Saved alias \`${name}' to \`${path}'\n`);
+  } else if(typeof path === 'undefined') {
+    // print alias
+    path = config.get('alias.' + name);
+    if(path) {
+      process.stdout.write(`alias.${name} = \`${path}'\n`);
+    } else {
+      process.stderr.write(`Cannot find alias \`${name}'\n`);
+      printHelp();
+    }
+  } else if(path === '') {
+    // delete alias
+    config.set('alias.' + name);
+    process.stdout.write(`Removed alias \`${name}'\n`);
   }
 }
 
@@ -117,7 +135,7 @@ function getGitDir() {
 }
 
 function printHelp() {
-  let helpInfo = require('fs').readFileSync(__dirname + '/help.txt').toString();
+  let helpInfo = fs.readFileSync(Path.join(__dirname, 'help.txt')).toString();
   console.log(helpInfo);
 }
 

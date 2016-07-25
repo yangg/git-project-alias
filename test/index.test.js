@@ -44,6 +44,10 @@ describe('git shortcut', function() {
     });
 
     describe('# work with alias', function() {
+      it('should alias is a folder', function() {
+        assert.deepEqual(shortcut(['.', 'log']), ['-C', repoPath, 'log']);
+      });
+
       it('should operate other repo', function() {
         assert.deepEqual(shortcut(['c', 'log']), ['-C', repoPath, 'log']);
       });
