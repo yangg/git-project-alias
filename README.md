@@ -2,7 +2,7 @@
 
 [![Build Status](https://travis-ci.org/yangg/git-shortcut.svg?branch=master)](https://travis-ci.org/yangg/git-shortcut) [![Code Climate](https://codeclimate.com/github/yangg/git-shortcut/badges/gpa.svg)](https://codeclimate.com/github/yangg/git-shortcut) [![npm:](https://img.shields.io/npm/v/git-shortcut.svg?style=flat)](https://www.npmjs.com/packages/git-shortcut) [![Dependency Status](https://david-dm.org/yangg/git-shortcut.svg)](https://david-dm.org/yangg/git-shortcut)
 
-git 命令行下快捷操作多个项目
+git 命令行下快捷操作其它项目
 
 git-shortcut helps you quickly run git commands work with multiple repos without switch directory
 

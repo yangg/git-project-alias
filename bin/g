@@ -1,3 +1,5 @@
 #!/usr/bin/env node
 
-require('../')();
+var Shortcut = require('../');
+new Shortcut(process.argv.slice(2)).run();
+
