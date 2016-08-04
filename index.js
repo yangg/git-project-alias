@@ -73,14 +73,28 @@ class Shortcut {
 
   resolveOptions(option) {
     // set alias
-    if(option === '-s' || option === '--set') {
-      this.addAlias();
-    } else if(option === '-p' || option === '--parallel') {
-      this.parallel();
-    } else {
-      printHelp();
+    switch(option) {
+      case '-s':
+      case '--set':
+        this.addAlias();
+        break;
+      case '-p':
+      case '--parallel':
+        break;
+      case '-v':
+      case '--version':
+        this.version();
+        break;
+      default:
+        printHelp();
+        break;
     }
     this.args.length = 0;
+  }
+
+  version() {
+    var config = require('./package.json');
+    process.stdout.write(`v${config.version}`);
   }
 
   /**
