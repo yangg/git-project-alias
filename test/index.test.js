@@ -6,6 +6,7 @@ const Path   = require('../lib/path');
 
 const config = require('../config');
 config.configPath = Path.join(require('os').tmpdir(), 'git-shortcut.yml');
+console.log(config.configPath );
 
 var Shortcut = require('../');
 // var execFileSync = require('child_process').execFileSync;

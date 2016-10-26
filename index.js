@@ -49,7 +49,7 @@ class Shortcut {
       fs.accessSync(nwd); // check if file exist
     } catch(ex) {
       cwd = getGitDir();
-      nwd = config.get(alias === '-' ? ('-.' + cwd) : ('alias.' + alias));
+      nwd = config.get(alias === '-' ? ['-', cwd] : ('alias.' + alias));
     }
 
     if(!nwd) {
@@ -126,13 +126,13 @@ class Shortcut {
       let cwd = getGitDir();
       if(path) { // set
         path = Path.resolve(path);
-        config.set('-.' + cwd, path);
-        if(!config.get('-.' + path)) {
-          config.set('-.' + path, cwd);
+        config.set(['-', cwd], path);
+        if(!config.get(['-', path])) {
+          config.set(['-', path], cwd);
         }
         process.stdout.write(`Saved alias \`-' to \`${path}'\n`);
       } else if(typeof path === 'undefined') { // print
-        path = config.get('-.' + cwd);
+        path = config.get(['-', cwd]);
         if(path) {
           process.stdout.write(`\`-' is aliased to \`${path}'\n`);
         } else {
@@ -140,7 +140,7 @@ class Shortcut {
           return printHelp();
         }
       } else if(path === '') {
-        config.set('-.' + cwd);
+        config.set(['-', cwd]);
       }
     } else if(path) {
       // add alias

@@ -1,6 +1,6 @@
 {
   "name": "git-shortcut",
-  "version": "1.2.0",
+  "version": "1.3.0",
   "description": "quickly run git commands work with multiple repos without switch directory",
   "main": "index",
   "bin": {
@@ -28,7 +28,7 @@
   },
   "homepage": "https://github.com/yangg/git-shortcut#readme",
   "dependencies": {
-    "yaml-settings": "^1.0.1"
+    "yaml-settings": "^1.0.2"
   },
   "devDependencies": {
     "chai": "^3.5.0",
