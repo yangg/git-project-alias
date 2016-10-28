@@ -80,6 +80,7 @@ class Shortcut {
         break;
       case '-p':
       case '--parallel':
+        this.parallel();
         break;
       case '-v':
       case '--version':
@@ -94,7 +95,7 @@ class Shortcut {
 
   version() {
     var config = require('./package.json');
-    process.stdout.write(`v${config.version}`);
+    process.stdout.write(`v${config.version}\n`);
   }
 
   /**
